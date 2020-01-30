@@ -19,6 +19,9 @@ body {
 
 #toy-collection {
   margin: 2rem;
+  display: flex;
+  flex-wrap: wrap;  
+  justify-content: space-between;
 }
 
 .card {
@@ -27,7 +30,6 @@ body {
   padding: 1rem;
   width: 15rem;
   height: 25rem;
-  display: inline-grid;
   margin: 1rem 2rem;
   box-shadow: 3px 4px #e04b52
 }
@@ -60,7 +62,6 @@ button:hover {
   padding: 1rem;
   width: stretch;
   height: auto;
-  display: none;
   background: #515DA2;
   opacity: .8;
 }
@@ -96,4 +97,9 @@ button:hover {
   font-size: 18px;
   font-family: monospace;
   margin: 3px;
+}
+
+#toy-collection li {
+  margin: 0px;
+  list-style: none;
 }
