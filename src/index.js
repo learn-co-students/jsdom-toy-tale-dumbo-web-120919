@@ -10,23 +10,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
 
   function renderOneToy(toy) {
-    const outerLi = document.createElement('li')
-    // outerLi.className = "card"
-    outerLi.dataset.id = toy.id
+    const outerDiv = document.createElement('div')
+    outerDiv.className = "card"
+    outerDiv.dataset.id = toy.id
      
-    outerLi.innerHTML = `
-    <div class="card">
+    outerDiv.innerHTML = `
       <h2>${toy.name}</h2>
-      <img src="${toy.image}" class="toy-avatar" >
-      <div class="likes">
+      <img src="${toy.image}" class="toy-avatar" />
+      <p class="likes">
         <span class="like-count">${toy.likes}</span> likes
-      </div>
+      </p>
 
       <button class="like-btn" data-action="like"> Like <3 </button>
-    </div>
     `
 
-    toyList.append(outerLi)
+    toyList.append(outerDiv)
   }
 
   fetch("http://localhost:3000/toys")
@@ -62,12 +60,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     fetch("http://localhost:3000/toys", {
       method: 'POST',
-      headers: 
-        {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
- 
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
       body: JSON.stringify(newToy)
     })
     .then(r => r.json())
@@ -78,28 +74,23 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   toyList.addEventListener("click", event => {
     if (event.target.dataset.action === "like") {
-      const outerLi = event.target.closest("li")
-      const likeCount = outerLi.querySelector(".like-count")
+      const outerDiv = event.target.closest("div")
+      const likeCount = outerDiv.querySelector(".like-count")
       const newLikes = parseInt(likeCount.textContent) + 1
-      const toyId = outerLi.dataset.id
+      const toyId = outerDiv.dataset.id
 
       fetch(`http://localhost:3000/toys/${toyId}`, {
         method: 'PATCH',
-        headers: 
-          {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
         body: JSON.stringify({
-            likes: newLikes
-          })
+          likes: newLikes
+        })
       })
       
       likeCount.textContent = newLikes
-
     }
-
   })  
-
 })
-
